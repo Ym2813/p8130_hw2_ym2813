@@ -1,0 +1,93 @@
+---
+title: "P8130_hw2_ym2813"
+author: "Anna Ma"
+date: "10/6/2021"
+output: html_document
+---
+
+## Problem 1:
+### Suppose that probability of having at least onedental checkupduring a two-yearperiod is 65%. 40random individuals are being studied for their health care utilization practicesover a two-year period. Compute “part a”by hand andshow key steps.For all other parts you may hand calculate or use R.
+
+#### a) What is the probability that exactly 24of theseindividualswill have at least one dental checkup?
+
+
+
+
+
+
+
+
+#### b) What is the probability that at least 24 of these individuals will have at least one dental checkup?
+
+  $P(X \geqslant 24) = 1 - P(X < 24) = 1 - P(X \leqslant 23)$
+ 
+```{r}
+p_at_least_24 = 1 - pbinom(23, 40, 0.65)
+p_at_least_24
+```
+
+   The probability that at least 24 of the individuals has at least one dental checkup is $P(X \geqslant 24)$ = `r 1 - pbinom(23, 40, 0.65)`
+
+#### c) Could you use an approximation method to calculate the probabilities above? If yes, calculate the probabilities using approximations and compare to the exact values; otherwise, explain why approximations methods are not appropriate.
+
+Case 1: Use Poisson distribution to approximate Binomial distribution. This approximation has two condition: 1). n > 100; 2). p < 0.01. 
+In our case, n = 40 and p = 0.65, both of which fails to satisfy the condition for approximating binomial with poisson. Therefore, we cannot use this approximation method. 
+
+Case 2: Use Normal distribution to approximate Binomial distribution
+This approximation has two conditions: 1). np $\geqslant$ 10; and 2). n(1-p) $\geqslant$ 10.
+In our case, np = 40 $\times$ 0.65 = 26, which satisfies the first condition; n(1-p) = 40 $\times$ (1-0.65) = 14 which satisfies the second condition. Therefore, we can use this approximation. 
+
+$\mu = np = 40 \times 0.65=26$, $\sigma=\sqrt{np(1-p)}=\sqrt{40\times 0.65\times (1-0.65)}=3.012$
+
+In a), $P(X=24)$, rewrite with the continuity correction factor for normal distribution and we get $P(24-\frac{1}{2}\leqslant X \leqslant 24+\frac{1}{2})$. 
+
+Applying Z transformation:
+\begin{equation} 
+\begin{split}
+P(24-\frac{1}{2}\leqslant X \leqslant 24+\frac{1}{2}) 
+& = P(\frac{23.5-26}{3.02}\leqslant Z \leqslant \frac{24.5-26}{3.02}) \\
+ & = P(-0.83 \leqslant Z\leqslant-0.497)\\
+ & = P(0.497)-P(0.83)\\
+ & = `r pnorm(24.5, mean = 26, sd = sqrt(9.1)) - pnorm(23.5, mean = 26, sd = sqrt(9.1))`
+\end{split}
+\end{equation}
+
+The normal approximation calculates that the probability that exactly 24 individuals came to the check up is $P(23.5\leqslant X \leqslant 24.5) = 0.10588$. This is very close to the exact probability, which is 0.103, meaning that the approximation is appropriate.
+
+In b), $P(X \geqslant 24)$, rewrite with the continuity correction factor for normal distribution and we get
+$P(X > 24-\frac{1}{2})=P(X > 23.5)$
+
+Applying Z transformation:
+\begin{equation} 
+\begin{split}
+P(X > 23.5)
+ & = P(Z > \frac{23.5-26}{3.02} \\
+ & = P(Z > -0.83)\\
+ & = 1-P(Z \leqslant -0.83)
+ & = `r 1- pnorm(23.5, mean = 26, sd = sqrt(9.1))`
+\end{split}
+\end{equation}
+
+The normal approximation calculates that the probability that at least 24 individuals came to the check up is 0.7963.This is very close to the exact probability, which is 0.7977, meaning that the approximation is appropriate.
+
+#### d) How many individuals do you expect to have at least one dental checkup?
+
+$E(x)= np = 40 \times 0.65 = 26$
+
+Therefore, we expect 26 individuals to have at lease one dental checkup. 
+
+#### e) What is the SD of the number of individuals who will have at least one dental checkup?
+
+sd = $\sqrt{Var} = \sqrt{np(1-p)}=\sqrt{40\times 0.65\times (1-0.65)}=$ `r sqrt(40 * 0.65 * 0.35)` 
+The standard deviation is `r sqrt(40 * 0.65 * 0.35)` 
+
+### Problem 2
+#### Suppose the number of tornados in the United States follows a Poisson distribution with parameter λ = 7 tornados per year. Compute using tables or R.Show the formula for “part a” (it can be handwritten and embedded in the pdf file).
+
+#### a) What is the probability of having fewer than 3 tornados in the United States next year?
+Let X be the random variable denoting the number of tornados in the United States. X ~ _Poi_($\lambda$)
+$P\left( x \right) = \frac{{e^{ - \lambda } \lambda ^x }}{{x!}}$
+
+#### b) What is the probability of having exactly 3 tornados in the United States next year?
+
+#### c) What is the probability of having more than 3 tornados in the United States next year?
