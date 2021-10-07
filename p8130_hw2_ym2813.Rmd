@@ -7,24 +7,28 @@ output: pdf_document
 
 ## Problem 1:
 
-### Suppose that probability of having at least onedental checkupduring a two-yearperiod is 65%. 40random individuals are being studied for their health care utilization practicesover a two-year period. Compute “part a”by hand andshow key steps.For all other parts you may hand calculate or use R.
+**Suppose that probability of having at least one dental check up during a two-year period is 65%. 40 random individuals are being studied for their health care utilization practices over a two-year period.** 
 
-#### a) What is the probability that exactly 24of theseindividualswill have at least one dental checkup?\
+**a) What is the probability that exactly 24 of these individuals will have at least one dental checkup?**   
 
-![Hand written answer for a)](Problem 1-1.jpg)
+![Hand written answer for part a](Problem 1-1.jpg)
 
-#### b) What is the probability that at least 24 of these individuals will have at least one dental checkup?
+**b) What is the probability that at least 24 of these individuals will have at least one dental checkup?**  
+
 
 $P(X \geqslant 24) = 1 - P(X < 24) = 1 - P(X \leqslant 23)$
+ 
  
 ```{r}
 p_at_least_24 = 1 - pbinom(23, 40, 0.65)
 p_at_least_24
 ```
 
-   The probability that at least 24 of the individuals has at least one dental checkup is $P(X \geqslant 24)$ = `r 1 - pbinom(23, 40, 0.65)`
 
-#### c) Could you use an approximation method to calculate the probabilities above? If yes, calculate the probabilities using approximations and compare to the exact values; otherwise, explain why approximations methods are not appropriate.
+The probability that at least 24 of the individuals has at least one dental checkup is $P(X \geqslant 24)$ = `r 1 - pbinom(23, 40, 0.65)`
+
+**c) Could you use an approximation method to calculate the probabilities above? If yes, calculate the probabilities using approximations and compare to the exact values; otherwise, explain why approximations methods are not appropriate.**
+
 
 Case 1: Use Poisson distribution to approximate Binomial distribution. This approximation has two condition: 1). n > 100; 2). p < 0.01. 
 In our case, n = 40 and p = 0.65, both of which fails to satisfy the condition for approximating binomial with poisson. Therefore, we cannot use this approximation method. 
@@ -66,37 +70,39 @@ P(X > 23.5)
 
 The normal approximation calculates that the probability that at least 24 individuals came to the check up is 0.7963.This is very close to the exact probability, which is 0.7977, meaning that the approximation is appropriate.
 
-#### d) How many individuals do you expect to have at least one dental checkup?
+**d) How many individuals do you expect to have at least one dental checkup?** 
 
 $E(x)= np = 40 \times 0.65 = 26$
 
 Therefore, we expect 26 individuals to have at lease one dental checkup. 
 
-#### e) What is the SD of the number of individuals who will have at least one dental checkup?
+**e) What is the SD of the number of individuals who will have at least one dental checkup?**
 
 sd = $\sqrt{Var} = \sqrt{np(1-p)}=\sqrt{40\times 0.65\times (1-0.65)}=$ `r sqrt(40 * 0.65 * 0.35)` 
 
 The standard deviation is `r sqrt(40 * 0.65 * 0.35)` 
 
-### Problem 2
-#### Suppose the number of tornados in the United States follows a Poisson distribution with parameter is 7 tornados per year. Compute using tables or R.Show the formula for “part a” (it can be handwritten and embedded in the pdf file).
+## Problem 2
 
-#### a) What is the probability of having fewer than 3 tornados in the United States next year?
+**Suppose the number of tornados in the United States follows a Poisson distribution with parameter is 7 tornados per year. Compute using tables or R.Show the formula for “part a” (it can be handwritten and embedded in the pdf file).**
+
+**a) What is the probability of having fewer than 3 tornados in the United States next year?**
+
 Let X be the random variable denoting the number of tornados in the United States. X ~ _Poi_($\lambda$) where $\lambda$ = 7
 
 $P\left( x \right) = \frac{{e^{ - \lambda } \lambda ^x }}{{x!}}$ 
 
-$P(x<3)=\sum_{x=0}^{2}\frac{{-7 ^xe^{ - 7 } }}{{x!}}=\frac{{-7 ^0e^{ - 7 } }}{{0!}}+\frac{{-7 ^1e^{ - 7 } }}{{1!}}+\frac{{-7 ^2e^{ - 7 } }}{{2!}}$=`r ppois(2, 7)`
+$P(x<3)=P(x\leqslant2)=\sum_{x=0}^{2}\frac{{-7 ^xe^{ - 7 } }}{{x!}}=\frac{{-7 ^0e^{ - 7 } }}{{0!}}+\frac{{-7 ^1e^{ - 7 } }}{{1!}}+\frac{{-7 ^2e^{ - 7 } }}{{2!}}$=`r ppois(2, 7)`
 
 The probability of having fewer than 3 tornados in the United States next year is `r ppois(2, 7)`
 
-#### b) What is the probability of having exactly 3 tornados in the United States next year?
+**b) What is the probability of having exactly 3 tornados in the United States next year?**
 
 $P(x=3)=P(3) = \frac{{-7^3e^{ - 7 }  }}{{3!}}$= `r dpois(3, 7)`
 
 The probability of having exactly 3 tornados in the United States next year is `r dpois(3, 7)`
 
-#### c) What is the probability of having more than 3 tornados in the United States next year?
+**c) What is the probability of having more than 3 tornados in the United States next year?**
 
 \begin{equation} 
 \begin{split}
@@ -110,11 +116,11 @@ P(X > 3)
 
 The probability of having more than 3 tornados in the United States next year is `r 1- dpois(3, 7)`
 
-##Problem 3
+## Problem 3
 
-### Assume the systolic blood pressure of 20 -29 years old American males is normally distributed with population mean 132.0 and population standard deviation 9.8. 
+**Assume the systolic blood pressure of 20 -29 years old American males is normally distributed with population mean 132.0 and population standard deviation 9.8.** 
 
-#### a) What is the probability that a randomly selected American male between ages of 20 and 29 to have a systolic blood pressure above 137.0?
+**a) What is the probability that a randomly selected American male between ages of 20 and 29 to have a systolic blood pressure above 137.0?**
 
 Let X be the random variable denoting the number of 20-29 years old American males who have a systolic blood pressure. X ~ N(132,9.8)
 
@@ -126,7 +132,7 @@ $P(x>137)=1-P(x\leqslant137)$= `r 1- pnorm(137, mean = 132, sd = 9.8)`
  
 The probability that a randomly selected American male between ages of 20 and 29 to have a systolic blood pressure above 137.0 is `r 1- pnorm(137, mean = 132, sd = 9.8)`
 
-#### b) What is the probability that the sample mean for blood pressure of 40 males between ages of 20 and 29 will be less than 129?
+**b) What is the probability that the sample mean for blood pressure of 40 males between ages of 20 and 29 will be less than 129?**
 
 Since $n=40\geqslant30$, we can use the central limit theory, which states that the distribution of the sample mean is approximately normal with $\bar{X}$~$N(\mu,\frac{\sigma}{\sqrt n})$, it follows that 
 $\frac{\bar{X}-\mu}{\sigma/\sqrt n}$~$N(0,1)$
@@ -135,7 +141,7 @@ $P(\bar{X}<129)=P(Z<\frac{129-132}{9.8/\sqrt 40})=P(Z<-1.94)$= `r pnorm(129, mea
 
 The probability that the sample mean for blood pressure of 40 males between ages of 20 and 29 less than 129 is `r pnorm(129, mean = 132, sd=9.8/sqrt(40))`
 
-#### c) What is the 90 quantile of the sampling distribution of the sample mean X for a sample size of 40?
+**c) What is the 90 quantile of the sampling distribution of the sample mean X for a sample size of 40?**
 
 The distribution of the sample mean is approximately normal with $\bar{X}$~$N(132,\frac{9.8}{\sqrt 40})$
 The formula for a normal distribution quantile is $X = \mu + Z\sigma$.
@@ -148,11 +154,11 @@ qnorm(0.9,mean = 132,sd = 9.8/sqrt(40))
 
 Thus, the 90 quantile of the sample mean is `r qnorm(0.9,mean = 132,sd = 9.8/sqrt(40))`
 
-##Problem 4
+## Problem 4
 
-### The researchers are interested in the mean pulse of young women suffering from fibromyalgia. They selected a random sample of 30 young females suffering from fibromyalgia. Thesample mean of their pulses was 75 and the sample standard deviation was 8. 
+**The researchers are interested in the mean pulse of young women suffering from fibromyalgia. They selected a random sample of 30 young females suffering from fibromyalgia. Thesample mean of their pulses was 75 and the sample standard deviation was 8.**
 
-#### a) Compute the 95% confidence interval for the population mean pulse rate of young females suffering from fibromyalgia.
+**a) Compute the 95% confidence interval for the population mean pulse rate of young females suffering from fibromyalgia.**
 
 The formula for the 95% confidence interval for the population mean is 
 
@@ -172,11 +178,11 @@ $72.01275\leqslant \mu \leqslant77.98725$
 
 The 95% confidence interval for the population mean is (`r c(lower, upper)`)
 
-#### b) Interpret the calculated confidence interval
+**b) Interpret the calculated confidence interval**
 
 We are 95% confident that the true population mean pulse rate of young females suffering from fibromyalgia lies between the lower limit 72.01275 and the upper limit 77.98725. 
 
-#### c) Suppose the researchers now want to test the null hypothesis that the mean pulse of young women suffering from fibromyalgia is equal to 70, against the alternative that mean pulse is not equal to 70, at the significance level of is 0.05.  Would it be possible to answer this question without doing any additional calculations? If yes, state the conclusion of their test, and explain how you arrived at the answer.
+**c) Suppose the researchers now want to test the null hypothesis that the mean pulse of young women suffering from fibromyalgia is equal to 70, against the alternative that mean pulse is not equal to 70, at the significance level of is 0.05.  Would it be possible to answer this question without doing any additional calculations? If yes, state the conclusion of their test, and explain how you arrived at the answer.**
 
 Yes, we can answer the question without further calculation. This is because we found in part b) that the 95% confidence interval for the mean pulse of young women suffering from fibromyalgia is (`r c(lower, upper)`), and 70 does not fall into this interval. That is, we are 95% confident that 70 is not the population mean. 
 
