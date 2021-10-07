@@ -2,19 +2,20 @@
 title: "P8130_hw2_ym2813"
 author: "Anna Ma"
 date: "10/6/2021"
-output: html_document
+output: pdf_document
 ---
 
 ## Problem 1:
+
 ### Suppose that probability of having at least onedental checkupduring a two-yearperiod is 65%. 40random individuals are being studied for their health care utilization practicesover a two-year period. Compute “part a”by hand andshow key steps.For all other parts you may hand calculate or use R.
 
-#### a) What is the probability that exactly 24of theseindividualswill have at least one dental checkup?
+#### a) What is the probability that exactly 24of theseindividualswill have at least one dental checkup?\
 
-![](Problem 1-1.jpg)
+![Hand written answer for a)](Problem 1-1.jpg)
 
 #### b) What is the probability that at least 24 of these individuals will have at least one dental checkup?
 
-  $P(X \geqslant 24) = 1 - P(X < 24) = 1 - P(X \leqslant 23)$
+$P(X \geqslant 24) = 1 - P(X < 24) = 1 - P(X \leqslant 23)$
  
 ```{r}
 p_at_least_24 = 1 - pbinom(23, 40, 0.65)
@@ -58,7 +59,7 @@ Applying Z transformation:
 P(X > 23.5)
  & = P(Z > \frac{23.5-26}{3.02} \\
  & = P(Z > -0.83)\\
- & = 1-P(Z \leqslant -0.83)
+ & = 1-P(Z \leqslant -0.83)\\
  & = `r 1- pnorm(23.5, mean = 26, sd = sqrt(9.1))`
 \end{split}
 \end{equation}
@@ -78,7 +79,7 @@ sd = $\sqrt{Var} = \sqrt{np(1-p)}=\sqrt{40\times 0.65\times (1-0.65)}=$ `r sqrt(
 The standard deviation is `r sqrt(40 * 0.65 * 0.35)` 
 
 ### Problem 2
-#### Suppose the number of tornados in the United States follows a Poisson distribution with parameter λ = 7 tornados per year. Compute using tables or R.Show the formula for “part a” (it can be handwritten and embedded in the pdf file).
+#### Suppose the number of tornados in the United States follows a Poisson distribution with parameter is 7 tornados per year. Compute using tables or R.Show the formula for “part a” (it can be handwritten and embedded in the pdf file).
 
 #### a) What is the probability of having fewer than 3 tornados in the United States next year?
 Let X be the random variable denoting the number of tornados in the United States. X ~ _Poi_($\lambda$) where $\lambda$ = 7
@@ -109,6 +110,8 @@ P(X > 3)
 
 The probability of having more than 3 tornados in the United States next year is `r 1- dpois(3, 7)`
 
+##Problem 3
+
 ### Assume the systolic blood pressure of 20 -29 years old American males is normally distributed with population mean 132.0 and population standard deviation 9.8. 
 
 #### a) What is the probability that a randomly selected American male between ages of 20 and 29 to have a systolic blood pressure above 137.0?
@@ -132,17 +135,20 @@ $P(\bar{X}<129)=P(Z<\frac{129-132}{9.8/\sqrt 40})=P(Z<-1.94)$= `r pnorm(129, mea
 
 The probability that the sample mean for blood pressure of 40 males between ages of 20 and 29 less than 129 is `r pnorm(129, mean = 132, sd=9.8/sqrt(40))`
 
-#### c) What is the 90 quantile of the sampling distribution of the sample mean 𝑋 for a sample size of 40?
+#### c) What is the 90 quantile of the sampling distribution of the sample mean X for a sample size of 40?
 
 The distribution of the sample mean is approximately normal with $\bar{X}$~$N(132,\frac{9.8}{\sqrt 40})$
-The formula for a normal distribution quntile is $X = \mu + Z\sigma$.
-Using Z=1.282 from the z-score table for the 90th quantile, $X = 132 + 1.282(\frac{9.8}{\sqrt 40}) = 133.98$
+The formula for a normal distribution quantile is $X = \mu + Z\sigma$.
+Using Z=1.282 from the z-score table for the 90th quantile, 
+$X = 132 + 1.282(\frac{9.8}{\sqrt 40}) = 133.98$
 
 ```{r}
 qnorm(0.9,mean = 132,sd = 9.8/sqrt(40))
 ```
 
 Thus, the 90 quantile of the sample mean is `r qnorm(0.9,mean = 132,sd = 9.8/sqrt(40))`
+
+##Problem 4
 
 ### The researchers are interested in the mean pulse of young women suffering from fibromyalgia. They selected a random sample of 30 young females suffering from fibromyalgia. Thesample mean of their pulses was 75 and the sample standard deviation was 8. 
 
@@ -170,7 +176,7 @@ The 95% confidence interval for the population mean is (`r c(lower, upper)`)
 
 We are 95% confident that the true population mean pulse rate of young females suffering from fibromyalgia lies between the lower limit 72.01275 and the upper limit 77.98725. 
 
-#### c) Suppose the researchers now want to test the null hypothesis that the mean pulse of young women suffering from fibromyalgia is equal to 70, against the alternative that mean pulse is not equal to 70, at the significance level of α = 0.05.  Would it be possible to answer this question without doing any additional calculations? If yes, state the conclusion of their test, and explain how you arrived at the answer.
+#### c) Suppose the researchers now want to test the null hypothesis that the mean pulse of young women suffering from fibromyalgia is equal to 70, against the alternative that mean pulse is not equal to 70, at the significance level of is 0.05.  Would it be possible to answer this question without doing any additional calculations? If yes, state the conclusion of their test, and explain how you arrived at the answer.
 
 Yes, we can answer the question without further calculation. This is because we found in part b) that the 95% confidence interval for the mean pulse of young women suffering from fibromyalgia is (`r c(lower, upper)`), and 70 does not fall into this interval. That is, we are 95% confident that 70 is not the population mean. 
 
