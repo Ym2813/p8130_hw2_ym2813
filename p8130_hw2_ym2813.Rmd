@@ -10,12 +10,7 @@ output: html_document
 
 #### a) What is the probability that exactly 24of theseindividualswill have at least one dental checkup?
 
-
-
-
-
-
-
+![](Problem 1-1.jpg)
 
 #### b) What is the probability that at least 24 of these individuals will have at least one dental checkup?
 
