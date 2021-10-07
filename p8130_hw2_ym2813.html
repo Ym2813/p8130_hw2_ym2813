@@ -235,12 +235,73 @@ P(X &gt; 23.5)
 <p>Let X be the random variable denoting the number of tornados in the United States. X ~ <em>Poi</em>(<span class="math inline">\(\lambda\)</span>) where <span class="math inline">\(\lambda\)</span> = 7</p>
 <p><span class="math inline">\(P\left( x \right) = \frac{{e^{ - \lambda } \lambda ^x }}{{x!}}\)</span></p>
 <p><span class="math inline">\(P(x&lt;3)=\sum_{x=0}^{2}\frac{{-7 ^xe^{ - 7 } }}{{x!}}=\frac{{-7 ^0e^{ - 7 } }}{{0!}}+\frac{{-7 ^1e^{ - 7 } }}{{1!}}+\frac{{-7 ^2e^{ - 7 } }}{{2!}}\)</span>=0.0296362</p>
+<p>The probability of having fewer than 3 tornados in the United States next year is 0.0296362</p>
 </div>
 <div id="b-what-is-the-probability-of-having-exactly-3-tornados-in-the-united-states-next-year" class="section level4">
 <h4>b) What is the probability of having exactly 3 tornados in the United States next year?</h4>
+<p><span class="math inline">\(P(x=3)=P(3) = \frac{{-7^3e^{ - 7 } }}{{3!}}\)</span>= 0.0521293</p>
+<p>The probability of having exactly 3 tornados in the United States next year is 0.0521293</p>
 </div>
 <div id="c-what-is-the-probability-of-having-more-than-3-tornados-in-the-united-states-next-year" class="section level4">
 <h4>c) What is the probability of having more than 3 tornados in the United States next year?</h4>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+P(X &gt; 3)
+ &amp; = 1- P(x\leqslant 3) \\
+ &amp; = 1-\sum_{x=0}^{3}\frac{{-7 ^xe^{ - 7 } }}{{x!}}\\
+ &amp; = 1-(\frac{{-7 ^0e^{ - 7 } }}{{0!}}+\frac{{-7 ^1e^{ - 7 } }}{{1!}}+\frac{{-7 ^2e^{ - 7 } }}{{2!}}+\frac{{-7 ^3e^{ - 3 } }}{{3!}})\\
+ &amp; = 0.9182346
+\end{split}
+\end{equation}\]</span></p>
+<p>The probability of having more than 3 tornados in the United States next year is 0.9478707</p>
+</div>
+</div>
+<div id="assume-the-systolic-blood-pressure-of-20--29-years-old-american-males-is-normally-distributed-with-population-mean-132.0-and-population-standard-deviation-9.8." class="section level3">
+<h3>Assume the systolic blood pressure of 20 -29 years old American males is normally distributed with population mean 132.0 and population standard deviation 9.8.</h3>
+<div id="a-what-is-the-probability-that-a-randomly-selected-american-male-between-ages-of-20-and-29-to-have-a-systolic-blood-pressure-above-137.0" class="section level4">
+<h4>a) What is the probability that a randomly selected American male between ages of 20 and 29 to have a systolic blood pressure above 137.0?</h4>
+<p>Let X be the random variable denoting the number of 20-29 years old American males who have a systolic blood pressure. X ~ N(132,9.8)</p>
+<pre class="r"><code>1 - pnorm(137, mean = 132, sd = 9.8)</code></pre>
+<pre><code>## [1] 0.3049542</code></pre>
+<p><span class="math inline">\(P(x&gt;137)=1-P(x\leqslant137)\)</span>= 0.3049542</p>
+<p>The probability that a randomly selected American male between ages of 20 and 29 to have a systolic blood pressure above 137.0 is 0.3049542</p>
+</div>
+<div id="b-what-is-the-probability-that-the-sample-mean-for-blood-pressure-of-40-males-between-ages-of-20-and-29-will-be-less-than-129" class="section level4">
+<h4>b) What is the probability that the sample mean for blood pressure of 40 males between ages of 20 and 29 will be less than 129?</h4>
+<p>Since <span class="math inline">\(n=40\geqslant30\)</span>, we can use the central limit theory, which states that the distribution of the sample mean is approximately normal with <span class="math inline">\(\bar{X}\)</span>~<span class="math inline">\(N(\mu,\frac{\sigma}{\sqrt n})\)</span>, it follows that <span class="math inline">\(\frac{\bar{X}-\mu}{\sigma/\sqrt n}\)</span>~<span class="math inline">\(N(0,1)\)</span></p>
+<p><span class="math inline">\(P(\bar{X}&lt;129)=P(Z&lt;\frac{129-132}{9.8/\sqrt 40})=P(Z&lt;-1.94)\)</span>= 0.0264284</p>
+<p>The probability that the sample mean for blood pressure of 40 males between ages of 20 and 29 less than 129 is 0.0264284</p>
+</div>
+<div id="c-what-is-the-90-quantile-of-the-sampling-distribution-of-the-sample-mean-𝑋-for-a-sample-size-of-40" class="section level4">
+<h4>c) What is the 90 quantile of the sampling distribution of the sample mean 𝑋 for a sample size of 40?</h4>
+<p>The distribution of the sample mean is approximately normal with <span class="math inline">\(\bar{X}\)</span>~<span class="math inline">\(N(132,\frac{9.8}{\sqrt 40})\)</span> The formula for a normal distribution quntile is <span class="math inline">\(X = \mu + Z\sigma\)</span>. Using Z=1.282 from the z-score table for the 90th quantile, <span class="math inline">\(X = 132 + 1.282(\frac{9.8}{\sqrt 40}) = 133.98\)</span></p>
+<pre class="r"><code>qnorm(0.9,mean = 132,sd = 9.8/sqrt(40))</code></pre>
+<pre><code>## [1] 133.9858</code></pre>
+<p>Thus, the 90 quantile of the sample mean is 133.9857847</p>
+</div>
+</div>
+<div id="the-researchers-are-interested-in-the-mean-pulse-of-young-women-suffering-from-fibromyalgia.-they-selected-a-random-sample-of-30-young-females-suffering-from-fibromyalgia.-thesample-mean-of-their-pulses-was-75-and-the-sample-standard-deviation-was-8." class="section level3">
+<h3>The researchers are interested in the mean pulse of young women suffering from fibromyalgia. They selected a random sample of 30 young females suffering from fibromyalgia. Thesample mean of their pulses was 75 and the sample standard deviation was 8.</h3>
+<div id="a-compute-the-95-confidence-interval-for-the-population-mean-pulse-rate-of-young-females-suffering-from-fibromyalgia." class="section level4">
+<h4>a) Compute the 95% confidence interval for the population mean pulse rate of young females suffering from fibromyalgia.</h4>
+<p>The formula for the 95% confidence interval for the population mean is</p>
+<p><span class="math inline">\(\bar{X}-t_{n-1,1-\alpha/2}\frac{s}{\sqrt n}\leqslant \mu \leqslant\bar{X}+t_{n-1,1-\alpha/2}\frac{s}{\sqrt n}\)</span></p>
+<p>Given n = 30, <span class="math inline">\(\bar{X}=75\)</span>,s = 8, <span class="math inline">\(\alpha\)</span>=0.05</p>
+<p><span class="math inline">\(75-t_{29,0.975}\frac{8}{\sqrt 30}\leqslant \mu \leqslant75+t_{29,0.975}\frac{8}{\sqrt 30}\)</span></p>
+<pre class="r"><code>lower = 75 - qt(0.975, df = 29) * 8/sqrt(30)
+upper = 75 + qt(0.975, df = 29) * 8/sqrt(30)
+c(lower, upper)</code></pre>
+<pre><code>## [1] 72.01275 77.98725</code></pre>
+<p><span class="math inline">\(72.01275\leqslant \mu \leqslant77.98725\)</span></p>
+<p>The 95% confidence interval for the population mean is (72.0127509, 77.9872491)</p>
+</div>
+<div id="b-interpret-the-calculated-confidence-interval" class="section level4">
+<h4>b) Interpret the calculated confidence interval</h4>
+<p>We are 95% confident that the true population mean pulse rate of young females suffering from fibromyalgia lies between the lower limit 72.01275 and the upper limit 77.98725.</p>
+</div>
+<div id="c-suppose-the-researchers-now-want-to-test-the-null-hypothesis-that-the-mean-pulse-of-young-women-suffering-from-fibromyalgia-is-equal-to-70-against-the-alternative-that-mean-pulse-is-not-equal-to-70-at-the-significance-level-of-α-0.05.-would-it-be-possible-to-answer-this-question-without-doing-any-additional-calculations-if-yes-state-the-conclusion-of-their-test-and-explain-how-you-arrived-at-the-answer." class="section level4">
+<h4>c) Suppose the researchers now want to test the null hypothesis that the mean pulse of young women suffering from fibromyalgia is equal to 70, against the alternative that mean pulse is not equal to 70, at the significance level of α = 0.05. Would it be possible to answer this question without doing any additional calculations? If yes, state the conclusion of their test, and explain how you arrived at the answer.</h4>
+<p>Yes, we can answer the question without further calculation. This is because we found in part b) that the 95% confidence interval for the mean pulse of young women suffering from fibromyalgia is (72.0127509, 77.9872491), and 70 does not fall into this interval. That is, we are 95% confident that 70 is not the population mean.</p>
 </div>
 </div>
 </div>

@@ -79,15 +79,104 @@ Therefore, we expect 26 individuals to have at lease one dental checkup.
 #### e) What is the SD of the number of individuals who will have at least one dental checkup?
 
 sd = $\sqrt{Var} = \sqrt{np(1-p)}=\sqrt{40\times 0.65\times (1-0.65)}=$ `r sqrt(40 * 0.65 * 0.35)` 
+
 The standard deviation is `r sqrt(40 * 0.65 * 0.35)` 
 
 ### Problem 2
 #### Suppose the number of tornados in the United States follows a Poisson distribution with parameter λ = 7 tornados per year. Compute using tables or R.Show the formula for “part a” (it can be handwritten and embedded in the pdf file).
 
 #### a) What is the probability of having fewer than 3 tornados in the United States next year?
-Let X be the random variable denoting the number of tornados in the United States. X ~ _Poi_($\lambda$)
-$P\left( x \right) = \frac{{e^{ - \lambda } \lambda ^x }}{{x!}}$
+Let X be the random variable denoting the number of tornados in the United States. X ~ _Poi_($\lambda$) where $\lambda$ = 7
+
+$P\left( x \right) = \frac{{e^{ - \lambda } \lambda ^x }}{{x!}}$ 
+
+$P(x<3)=\sum_{x=0}^{2}\frac{{-7 ^xe^{ - 7 } }}{{x!}}=\frac{{-7 ^0e^{ - 7 } }}{{0!}}+\frac{{-7 ^1e^{ - 7 } }}{{1!}}+\frac{{-7 ^2e^{ - 7 } }}{{2!}}$=`r ppois(2, 7)`
+
+The probability of having fewer than 3 tornados in the United States next year is `r ppois(2, 7)`
 
 #### b) What is the probability of having exactly 3 tornados in the United States next year?
 
+$P(x=3)=P(3) = \frac{{-7^3e^{ - 7 }  }}{{3!}}$= `r dpois(3, 7)`
+
+The probability of having exactly 3 tornados in the United States next year is `r dpois(3, 7)`
+
 #### c) What is the probability of having more than 3 tornados in the United States next year?
+
+\begin{equation} 
+\begin{split}
+P(X > 3)
+ & = 1- P(x\leqslant 3) \\
+ & = 1-\sum_{x=0}^{3}\frac{{-7 ^xe^{ - 7 } }}{{x!}}\\
+ & = 1-(\frac{{-7 ^0e^{ - 7 } }}{{0!}}+\frac{{-7 ^1e^{ - 7 } }}{{1!}}+\frac{{-7 ^2e^{ - 7 } }}{{2!}}+\frac{{-7 ^3e^{ - 3 } }}{{3!}})\\
+ & = `r 1-ppois(3, 7)`
+\end{split}
+\end{equation}
+
+The probability of having more than 3 tornados in the United States next year is `r 1- dpois(3, 7)`
+
+### Assume the systolic blood pressure of 20 -29 years old American males is normally distributed with population mean 132.0 and population standard deviation 9.8. 
+
+#### a) What is the probability that a randomly selected American male between ages of 20 and 29 to have a systolic blood pressure above 137.0?
+
+Let X be the random variable denoting the number of 20-29 years old American males who have a systolic blood pressure. X ~ N(132,9.8)
+
+```{r}
+1 - pnorm(137, mean = 132, sd = 9.8)
+```
+
+$P(x>137)=1-P(x\leqslant137)$= `r 1- pnorm(137, mean = 132, sd = 9.8)`
+ 
+The probability that a randomly selected American male between ages of 20 and 29 to have a systolic blood pressure above 137.0 is `r 1- pnorm(137, mean = 132, sd = 9.8)`
+
+#### b) What is the probability that the sample mean for blood pressure of 40 males between ages of 20 and 29 will be less than 129?
+
+Since $n=40\geqslant30$, we can use the central limit theory, which states that the distribution of the sample mean is approximately normal with $\bar{X}$~$N(\mu,\frac{\sigma}{\sqrt n})$, it follows that 
+$\frac{\bar{X}-\mu}{\sigma/\sqrt n}$~$N(0,1)$
+
+$P(\bar{X}<129)=P(Z<\frac{129-132}{9.8/\sqrt 40})=P(Z<-1.94)$= `r pnorm(129, mean = 132, sd=9.8/sqrt(40))`
+
+The probability that the sample mean for blood pressure of 40 males between ages of 20 and 29 less than 129 is `r pnorm(129, mean = 132, sd=9.8/sqrt(40))`
+
+#### c) What is the 90 quantile of the sampling distribution of the sample mean 𝑋 for a sample size of 40?
+
+The distribution of the sample mean is approximately normal with $\bar{X}$~$N(132,\frac{9.8}{\sqrt 40})$
+The formula for a normal distribution quntile is $X = \mu + Z\sigma$.
+Using Z=1.282 from the z-score table for the 90th quantile, $X = 132 + 1.282(\frac{9.8}{\sqrt 40}) = 133.98$
+
+```{r}
+qnorm(0.9,mean = 132,sd = 9.8/sqrt(40))
+```
+
+Thus, the 90 quantile of the sample mean is `r qnorm(0.9,mean = 132,sd = 9.8/sqrt(40))`
+
+### The researchers are interested in the mean pulse of young women suffering from fibromyalgia. They selected a random sample of 30 young females suffering from fibromyalgia. Thesample mean of their pulses was 75 and the sample standard deviation was 8. 
+
+#### a) Compute the 95% confidence interval for the population mean pulse rate of young females suffering from fibromyalgia.
+
+The formula for the 95% confidence interval for the population mean is 
+
+$\bar{X}-t_{n-1,1-\alpha/2}\frac{s}{\sqrt n}\leqslant \mu \leqslant\bar{X}+t_{n-1,1-\alpha/2}\frac{s}{\sqrt n}$
+
+Given n = 30, $\bar{X}=75$,s = 8, $\alpha$=0.05 
+
+$75-t_{29,0.975}\frac{8}{\sqrt 30}\leqslant \mu \leqslant75+t_{29,0.975}\frac{8}{\sqrt 30}$ 
+
+```{r}
+lower = 75 - qt(0.975, df = 29) * 8/sqrt(30)
+upper = 75 + qt(0.975, df = 29) * 8/sqrt(30)
+c(lower, upper)
+```
+
+$72.01275\leqslant \mu \leqslant77.98725$
+
+The 95% confidence interval for the population mean is (`r c(lower, upper)`)
+
+#### b) Interpret the calculated confidence interval
+
+We are 95% confident that the true population mean pulse rate of young females suffering from fibromyalgia lies between the lower limit 72.01275 and the upper limit 77.98725. 
+
+#### c) Suppose the researchers now want to test the null hypothesis that the mean pulse of young women suffering from fibromyalgia is equal to 70, against the alternative that mean pulse is not equal to 70, at the significance level of α = 0.05.  Would it be possible to answer this question without doing any additional calculations? If yes, state the conclusion of their test, and explain how you arrived at the answer.
+
+Yes, we can answer the question without further calculation. This is because we found in part b) that the 95% confidence interval for the mean pulse of young women suffering from fibromyalgia is (`r c(lower, upper)`), and 70 does not fall into this interval. That is, we are 95% confident that 70 is not the population mean. 
+
+
